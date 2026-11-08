@@ -34,7 +34,7 @@ button.track.playing{border-color:var(--c);background:color-mix(in srgb,var(--c)
   display:grid;place-items:center;font-size:1.1rem}
 .label b{display:block;font-size:1.05rem}
 .label small{color:var(--sub);font-size:.85rem}
-.sop{--c:var(--sop)} .alt{--c:var(--alt)} .ten{--c:var(--ten)} .pia{--c:var(--pia)}
+.all{--c:#7a5bb5} .sop{--c:var(--sop)} .alt{--c:var(--alt)} .ten{--c:var(--ten)} .pia{--c:var(--pia)}
 .howto{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;
   font-size:.92rem;color:var(--sub);margin-top:14px}
 .howto b{color:var(--ink)}
@@ -62,6 +62,10 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
 </header>
 <main>
   <div class="howto"><b>使い方：</b>「○○のみ」で自分のパートを覚えたら、「○○練習用」（自分のパートだけ抜けた音源）に合わせて歌ってみよう。速さを少し落として練習することもできます。</div>
+
+  <section class="all"><h2>全パート（混声三部合唱）</h2><div class="grid">
+    <button class="track" data-src="audio/00-zenbu.mp3" data-title="全パート（混声三部合唱）"><span class="icon">▶</span><span class="label"><b>全パート合唱</b><small>完成形を聴いて、曲全体をつかむ</small></span></button>
+  </div></section>
 
   <section class="sop"><h2>ソプラノ</h2><div class="grid">
     <button class="track" data-src="audio/01-soprano.mp3" data-title="ソプラノのみ"><span class="icon">▶</span><span class="label"><b>ソプラノのみ</b><small>まずは聴いて覚える</small></span></button>
