@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>旅立ちの日に 練習室</title>
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fff; --ink:#2b2a28; --sub:#6b665e; --line:#e3ddd3;
+  --sop:#d9576b; --alt:#e08a2c; --ten:#2f7fc1; --pia:#5a8f4e; --accent:#2b2a28;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#1b1a19; --card:#262523; --ink:#eeeae4; --sub:#a59f96; --line:#3a3835; --accent:#eeeae4; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"BIZ UDPGothic","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;line-height:1.6}
+header{padding:28px 16px 8px;text-align:center}
+h1{margin:0;font-size:1.7rem;letter-spacing:.08em}
+header p{margin:6px 0 0;color:var(--sub);font-size:.95rem}
+main{max-width:860px;margin:0 auto;padding:8px 16px 140px}
+section{margin-top:22px}
+h2{font-size:1.1rem;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--c)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+button.track{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;
+  background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 16px;
+  transition:border-color .15s, transform .05s}
+button.track:hover{border-color:var(--c)}
+button.track:active{transform:scale(.99)}
+button.track:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+button.track.playing{border-color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--card))}
+.icon{flex:none;width:44px;height:44px;border-radius:50%;background:var(--c);color:#fff;
+  display:grid;place-items:center;font-size:1.1rem}
+.label b{display:block;font-size:1.05rem}
+.label small{color:var(--sub);font-size:.85rem}
+.sop{--c:var(--sop)} .alt{--c:var(--alt)} .ten{--c:var(--ten)} .pia{--c:var(--pia)}
+.howto{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;
+  font-size:.92rem;color:var(--sub);margin-top:14px}
+.howto b{color:var(--ink)}
+#player{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.pin{max-width:860px;margin:0 auto}
+#now{font-weight:bold;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.ctl{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent);color:var(--bg);font-size:1rem;flex:none}
+.ctl.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-size:.8rem}
+.ctl:focus-visible{outline:3px solid var(--ten);outline-offset:2px}
+input[type=range]{flex:1;min-width:0;accent-color:var(--ink)}
+.time{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--sub);flex:none}
+select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1px solid var(--line);
+  background:var(--bg);color:var(--ink)}
+.opts{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.85rem;color:var(--sub);margin-top:4px}
+.opts label{display:flex;align-items:center;gap:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>旅立ちの日に 練習室</h1>
+  <p>聴きたい音源をクリックすると再生します（音量はすべてそろえてあります）</p>
+</header>
+<main>
+  <div class="howto"><b>使い方：</b>「○○のみ」で自分のパートを覚えたら、「○○練習用」（自分のパートだけ抜けた音源）に合わせて歌ってみよう。速さを少し落として練習することもできます。</div>
+
+  <section class="sop"><h2>ソプラノ</h2><div class="grid">
+    <button class="track" data-src="audio/01-soprano.mp3" data-title="ソプラノのみ"><span class="icon">▶</span><span class="label"><b>ソプラノのみ</b><small>まずは聴いて覚える</small></span></button>
+    <button class="track" data-src="audio/02-no-soprano.mp3" data-title="ソプラノ練習用（アルト＋男声）"><span class="icon">▶</span><span class="label"><b>ソプラノ練習用</b><small>アルト＋男声に合わせて歌う</small></span></button>
+  </div></section>
+
+  <section class="alt"><h2>アルト</h2><div class="grid">
+    <button class="track" data-src="audio/03-alto.mp3" data-title="アルトのみ"><span class="icon">▶</span><span class="label"><b>アルトのみ</b><small>まずは聴いて覚える</small></span></button>
+    <button class="track" data-src="audio/04-no-alto.mp3" data-title="アルト練習用（ソプラノ＋男声）"><span class="icon">▶</span><span class="label"><b>アルト練習用</b><small>ソプラノ＋男声に合わせて歌う</small></span></button>
+  </div></section>
+
+  <section class="ten"><h2>男声（テノール）</h2><div class="grid">
+    <button class="track" data-src="audio/05-tenor.mp3" data-title="男声のみ"><span class="icon">▶</span><span class="label"><b>男声のみ</b><small>まずは聴いて覚える</small></span></button>
+    <button class="track" data-src="audio/06-no-tenor.mp3" data-title="男声練習用（ソプラノ＋アルト）"><span class="icon">▶</span><span class="label"><b>男声練習用</b><small>ソプラノ＋アルトに合わせて歌う</small></span></button>
+  </div></section>
+
+  <section class="pia"><h2>ピアノ伴奏</h2><div class="grid">
+    <button class="track" data-src="audio/07-piano.mp3" data-title="ピアノ伴奏のみ"><span class="icon">▶</span><span class="label"><b>ピアノ伴奏のみ</b><small>全員で合わせる練習に</small></span></button>
+  </div></section>
+</main>
+
+<div id="player">
+  <div class="pin">
+    <div id="now">音源を選んでください</div>
+    <div class="row">
+      <button class="ctl ghost" id="back" aria-label="5秒もどる" title="5秒もどる">−5</button>
+      <button class="ctl" id="toggle" aria-label="再生／一時停止">▶</button>
+      <button class="ctl ghost" id="fwd" aria-label="5秒すすむ" title="5秒すすむ">＋5</button>
+      <input type="range" id="seek" min="0" max="0" step="0.1" value="0" aria-label="再生位置">
+      <span class="time" id="time">0:00 / 0:00</span>
+    </div>
+    <div class="opts">
+      <label>速さ
+        <select id="rate">
+          <option value="0.8">0.8倍</option>
+          <option value="0.9">0.9倍</option>
+          <option value="1" selected>ふつう</option>
+        </select></label>
+      <label><input type="checkbox" id="loop"> くり返し</label>
+    </div>
+  </div>
+</div>
+
+<audio id="audio" preload="none"></audio>
+<script>
+const a = document.getElementById('audio');
+const tracks = [...document.querySelectorAll('.track')];
+const $ = id => document.getElementById(id);
+const fmt = s => isFinite(s) ? Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0') : '0:00';
+let current = null;
+
+function select(btn){
+  if (current === btn){ a.paused ? a.play() : a.pause(); return; }
+  current = btn;
+  a.src = btn.dataset.src;
+  a.preservesPitch = true;
+  a.playbackRate = +$('rate').value;
+  $('now').textContent = btn.dataset.title;
+  a.play();
+}
+function refresh(){
+  tracks.forEach(t => {
+    const on = t === current && !a.paused;
+    t.classList.toggle('playing', t === current);
+    t.querySelector('.icon').textContent = on ? '❚❚' : '▶';
+  });
+  $('toggle').textContent = a.paused ? '▶' : '❚❚';
+}
+tracks.forEach(t => t.addEventListener('click', () => select(t)));
+$('toggle').onclick = () => { if (!current) return select(tracks[0]); a.paused ? a.play() : a.pause(); };
+$('back').onclick = () => { a.currentTime = Math.max(0, a.currentTime - 5); };
+$('fwd').onclick = () => { a.currentTime = Math.min(a.duration || 0, a.currentTime + 5); };
+$('rate').onchange = e => { a.playbackRate = +e.target.value; };
+$('loop').onchange = e => { a.loop = e.target.checked; };
+let dragging = false;
+$('seek').addEventListener('input', () => { dragging = true; $('time').textContent = fmt(+$('seek').value) + ' / ' + fmt(a.duration); });
+$('seek').addEventListener('change', () => { a.currentTime = +$('seek').value; dragging = false; });
+a.addEventListener('loadedmetadata', () => { $('seek').max = a.duration; });
+a.addEventListener('timeupdate', () => {
+  if (!dragging) $('seek').value = a.currentTime;
+  $('time').textContent = fmt(a.currentTime) + ' / ' + fmt(a.duration);
+});
+['play','pause','ended'].forEach(ev => a.addEventListener(ev, refresh));
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT'){ e.preventDefault(); $('toggle').click(); }
+});
+</script>
+</body>
+</html>
