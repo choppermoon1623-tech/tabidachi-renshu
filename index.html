@@ -53,6 +53,9 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
   background:var(--bg);color:var(--ink)}
 .opts{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.85rem;color:var(--sub);margin-top:4px}
 .opts label{display:flex;align-items:center;gap:4px}
+.sabi{all:unset;cursor:pointer;font-size:.85rem;font-weight:bold;padding:5px 12px;border-radius:999px;
+  background:var(--sop);color:#fff;margin-left:auto}
+.sabi:focus-visible{outline:3px solid var(--ten);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -106,6 +109,7 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
           <option value="1" selected>ふつう</option>
         </select></label>
       <label><input type="checkbox" id="loop"> くり返し</label>
+      <button class="sabi" id="sabi" title="「いま わかれのとき」の1小節前（3:02）から再生">♪ サビから</button>
     </div>
   </div>
 </div>
@@ -140,7 +144,25 @@ $('toggle').onclick = () => { if (!current) return select(tracks[0]); a.paused ?
 $('back').onclick = () => { a.currentTime = Math.max(0, a.currentTime - 5); };
 $('fwd').onclick = () => { a.currentTime = Math.min(a.duration || 0, a.currentTime + 5); };
 $('rate').onchange = e => { a.playbackRate = +e.target.value; };
-$('loop').onchange = e => { a.loop = e.target.checked; };
+// サビ（「いま わかれのとき」）の1小節前。くり返しオンなら、曲の終わりでここへ戻る
+const SABI = 182.0;
+let loopStart = 0;
+function startAt(sec){
+  if (a.readyState >= 1){ a.currentTime = sec; a.play(); return; }
+  // まだ読み込んでいない音源は、再生を始めて長さが分かった時点で飛ぶ
+  a.addEventListener('loadedmetadata', () => { a.currentTime = sec; }, { once: true });
+  a.play();
+}
+$('sabi').onclick = () => {
+  if (!current){
+    current = tracks[0]; a.src = current.dataset.src; a.preservesPitch = true;
+    a.playbackRate = +$('rate').value; $('now').textContent = current.dataset.title;
+  }
+  loopStart = SABI; $('now').textContent = current.dataset.title + '（サビから）';
+  startAt(SABI);
+};
+tracks.forEach(t => t.addEventListener('click', () => { if (t !== current) loopStart = 0; }, true));
+a.addEventListener('ended', () => { if ($('loop').checked) startAt(loopStart); });
 let dragging = false;
 $('seek').addEventListener('input', () => { dragging = true; $('time').textContent = fmt(+$('seek').value) + ' / ' + fmt(a.duration); });
 $('seek').addEventListener('change', () => { a.currentTime = +$('seek').value; dragging = false; });
