@@ -18,7 +18,7 @@ body{margin:0;background:var(--bg);color:var(--ink);
 header{padding:28px 16px 8px;text-align:center}
 h1{margin:0;font-size:1.7rem;letter-spacing:.08em}
 header p{margin:6px 0 0;color:var(--sub);font-size:.95rem}
-main{max-width:860px;margin:0 auto;padding:8px 16px 140px}
+main{max-width:860px;margin:0 auto;padding:8px 16px 260px}
 section{margin-top:22px}
 h2{font-size:1.1rem;margin:0 0 10px;display:flex;align-items:center;gap:8px}
 h2::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--c)}
@@ -53,9 +53,23 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
   background:var(--bg);color:var(--ink)}
 .opts{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.85rem;color:var(--sub);margin-top:4px}
 .opts label{display:flex;align-items:center;gap:4px}
-.sabi{all:unset;cursor:pointer;font-size:.85rem;font-weight:bold;padding:5px 12px;border-radius:999px;
-  background:var(--sop);color:#fff;margin-left:auto}
-.sabi:focus-visible{outline:3px solid var(--ten);outline-offset:2px}
+.head{display:flex;align-items:baseline;gap:10px}
+#now{flex:1;min-width:0}
+#bar{flex:none;font-size:.85rem;color:var(--sub);font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 0 4px;scrollbar-width:thin}
+.chip{all:unset;cursor:pointer;flex:none;font-size:.82rem;padding:5px 11px;border-radius:999px;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink);white-space:nowrap}
+.chip.sabi{border-color:var(--sop);color:var(--sop);font-weight:bold}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,.mini:focus-visible{outline:3px solid var(--ten);outline-offset:2px}
+.mini{all:unset;cursor:pointer;font-size:.82rem;padding:4px 10px;border-radius:8px;border:1px solid var(--line);
+  background:var(--bg);color:var(--ink);white-space:nowrap}
+.mini.on{background:var(--ten);border-color:var(--ten);color:#fff}
+.mini[disabled]{opacity:.4;cursor:default}
+.ab{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+#abinfo{font-variant-numeric:tabular-nums}
+.step{display:inline-block;min-width:1.5em;height:1.5em;line-height:1.5em;text-align:center;border-radius:50%;
+  background:var(--c);color:#fff;font-size:.75rem;font-weight:bold;font-style:normal;margin-right:4px}
 </style>
 </head>
 <body>
@@ -64,25 +78,28 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
   <p>聴きたい音源をクリックすると再生します（音量はすべてそろえてあります）</p>
 </header>
 <main>
-  <div class="howto"><b>使い方：</b>「○○＋ピアノ」で自分のパートを覚えたら、「○○練習用」（自分のパートだけ抜けた音源）に合わせて歌ってみよう。速さを少し落として練習することもできます。</div>
+  <div class="howto"><b>使い方：</b>①「○○＋ピアノ」で自分のパートを覚える → ②「○○大きめ」でほかのパートと合わせる → ③「○○練習用」（自分のパートだけ抜けた音源）に合わせて歌う。<br>音源を切りかえても<b>同じ場所から</b>続きます。下の「1番」「サビ」などで場所を選び、「A」「B」で苦手なところだけくり返せます。速さも変えられます。</div>
 
   <section class="all"><h2>全パート（混声三部合唱）</h2><div class="grid">
     <button class="track" data-src="audio/00-zenbu.mp3" data-title="全パート＋ピアノ"><span class="icon">▶</span><span class="label"><b>全パート合唱</b><small>完成形を聴いて、曲全体をつかむ</small></span></button>
   </div></section>
 
   <section class="sop"><h2>ソプラノ</h2><div class="grid">
-    <button class="track" data-src="audio/01-soprano.mp3" data-title="ソプラノ＋ピアノ"><span class="icon">▶</span><span class="label"><b>ソプラノ＋ピアノ</b><small>まずは聴いて覚える</small></span></button>
-    <button class="track" data-src="audio/04-no-soprano.mp3" data-title="ソプラノ練習用（アルト＋男声＋ピアノ）"><span class="icon">▶</span><span class="label"><b>ソプラノ練習用</b><small>アルト＋男声に合わせて歌う</small></span></button>
+    <button class="track" data-src="audio/01-soprano.mp3" data-title="ソプラノ＋ピアノ"><span class="icon">▶</span><span class="label"><b><i class="step">1</i>ソプラノ＋ピアノ</b><small>まずは聴いて覚える</small></span></button>
+    <button class="track" data-src="audio/09-soprano-oome.mp3" data-title="ソプラノ大きめ（全パート＋ピアノ）"><span class="icon">▶</span><span class="label"><b><i class="step">2</i>ソプラノ大きめ</b><small>全パートの中でソプラノだけ大きい</small></span></button>
+    <button class="track" data-src="audio/04-no-soprano.mp3" data-title="ソプラノ練習用（アルト＋男声＋ピアノ）"><span class="icon">▶</span><span class="label"><b><i class="step">3</i>ソプラノ練習用</b><small>アルト＋男声に合わせて歌う</small></span></button>
   </div></section>
 
   <section class="alt"><h2>アルト</h2><div class="grid">
-    <button class="track" data-src="audio/02-alto.mp3" data-title="アルト＋ピアノ"><span class="icon">▶</span><span class="label"><b>アルト＋ピアノ</b><small>まずは聴いて覚える</small></span></button>
-    <button class="track" data-src="audio/05-no-alto.mp3" data-title="アルト練習用（ソプラノ＋男声＋ピアノ）"><span class="icon">▶</span><span class="label"><b>アルト練習用</b><small>ソプラノ＋男声に合わせて歌う</small></span></button>
+    <button class="track" data-src="audio/02-alto.mp3" data-title="アルト＋ピアノ"><span class="icon">▶</span><span class="label"><b><i class="step">1</i>アルト＋ピアノ</b><small>まずは聴いて覚える</small></span></button>
+    <button class="track" data-src="audio/10-alto-oome.mp3" data-title="アルト大きめ（全パート＋ピアノ）"><span class="icon">▶</span><span class="label"><b><i class="step">2</i>アルト大きめ</b><small>全パートの中でアルトだけ大きい</small></span></button>
+    <button class="track" data-src="audio/05-no-alto.mp3" data-title="アルト練習用（ソプラノ＋男声＋ピアノ）"><span class="icon">▶</span><span class="label"><b><i class="step">3</i>アルト練習用</b><small>ソプラノ＋男声に合わせて歌う</small></span></button>
   </div></section>
 
   <section class="ten"><h2>男声（テノール）</h2><div class="grid">
-    <button class="track" data-src="audio/03-tenor.mp3" data-title="男声＋ピアノ"><span class="icon">▶</span><span class="label"><b>男声＋ピアノ</b><small>まずは聴いて覚える</small></span></button>
-    <button class="track" data-src="audio/06-no-tenor.mp3" data-title="男声練習用（ソプラノ＋アルト＋ピアノ）"><span class="icon">▶</span><span class="label"><b>男声練習用</b><small>ソプラノ＋アルトに合わせて歌う</small></span></button>
+    <button class="track" data-src="audio/03-tenor.mp3" data-title="男声＋ピアノ"><span class="icon">▶</span><span class="label"><b><i class="step">1</i>男声＋ピアノ</b><small>まずは聴いて覚える</small></span></button>
+    <button class="track" data-src="audio/11-tenor-oome.mp3" data-title="男声大きめ（全パート＋ピアノ）"><span class="icon">▶</span><span class="label"><b><i class="step">2</i>男声大きめ</b><small>全パートの中で男声だけ大きい</small></span></button>
+    <button class="track" data-src="audio/06-no-tenor.mp3" data-title="男声練習用（ソプラノ＋アルト＋ピアノ）"><span class="icon">▶</span><span class="label"><b><i class="step">3</i>男声練習用</b><small>ソプラノ＋アルトに合わせて歌う</small></span></button>
   </div></section>
 
   <section class="pia"><h2>ピアノ伴奏</h2><div class="grid">
@@ -96,8 +113,10 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
 
 <div id="player">
   <div class="pin">
-    <div id="now">音源を選んでください</div>
+    <div class="head"><div id="now">音源を選んでください</div><div id="bar"></div></div>
+    <div class="chips" id="chips" role="group" aria-label="場所を選ぶ"></div>
     <div class="row">
+      <button class="ctl ghost" id="top" aria-label="最初から" title="最初から（区間くり返し中は A から）">⏮</button>
       <button class="ctl ghost" id="back" aria-label="5秒もどる" title="5秒もどる">−5</button>
       <button class="ctl" id="toggle" aria-label="再生／一時停止">▶</button>
       <button class="ctl ghost" id="fwd" aria-label="5秒すすむ" title="5秒すすむ">＋5</button>
@@ -107,12 +126,20 @@ select{font:inherit;font-size:.85rem;padding:4px 6px;border-radius:8px;border:1p
     <div class="opts">
       <label>速さ
         <select id="rate">
+          <option value="0.7">0.7倍</option>
           <option value="0.8">0.8倍</option>
           <option value="0.9">0.9倍</option>
           <option value="1" selected>ふつう</option>
+          <option value="1.1">1.1倍</option>
         </select></label>
-      <label><input type="checkbox" id="loop"> くり返し</label>
-      <button class="sabi" id="sabi" title="「いま わかれのとき」の1小節前（3:02）から再生">♪ サビから</button>
+      <label><input type="checkbox" id="loop"> 曲をくり返す</label>
+      <span class="ab">区間くり返し
+        <button class="mini" id="setA" title="いまの場所を、くり返しのはじまりにする">A</button>
+        <button class="mini" id="setB" title="いまの場所を、くり返しのおわりにする">B</button>
+        <button class="mini" id="secAB" title="いま流れている区間（1番・サビなど）をくり返す">この区間</button>
+        <button class="mini" id="clrAB" disabled>解除</button>
+        <span id="abinfo"></span>
+      </span>
     </div>
   </div>
 </div>
@@ -125,14 +152,19 @@ const $ = id => document.getElementById(id);
 const fmt = s => isFinite(s) ? Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0') : '0:00';
 let current = null;
 
-function select(btn){
-  if (current === btn){ a.paused ? a.play() : a.pause(); return; }
+// どの音源も長さとタイミングが同じなので、切りかえても同じ場所から続ける
+function load(btn, at){
   current = btn;
   a.src = btn.dataset.src;
   a.preservesPitch = true;
   a.playbackRate = +$('rate').value;
   $('now').textContent = btn.dataset.title;
-  a.play();
+  if (at > 0) a.addEventListener('loadedmetadata', () => { a.currentTime = Math.min(at, a.duration - 0.5); }, { once: true });
+}
+function select(btn){
+  if (current === btn){ a.paused ? a.play() : a.pause(); return; }
+  const at = current && !a.ended ? a.currentTime : 0;
+  load(btn, at); a.play();
 }
 function refresh(){
   tracks.forEach(t => {
@@ -142,41 +174,91 @@ function refresh(){
   });
   $('toggle').textContent = a.paused ? '▶' : '❚❚';
 }
+function seekTo(sec, play){
+  if (!current) load(tracks[0], 0);
+  if (a.readyState >= 1) a.currentTime = sec;
+  else a.addEventListener('loadedmetadata', () => { a.currentTime = sec; }, { once: true });
+  if (play) a.play();
+}
 tracks.forEach(t => t.addEventListener('click', () => select(t)));
 $('toggle').onclick = () => { if (!current) return select(tracks[0]); a.paused ? a.play() : a.pause(); };
+$('top').onclick = () => seekTo(ab ? ab[0] : 0, true);
 $('back').onclick = () => { a.currentTime = Math.max(0, a.currentTime - 5); };
 $('fwd').onclick = () => { a.currentTime = Math.min(a.duration || 0, a.currentTime + 5); };
-$('rate').onchange = e => { a.playbackRate = +e.target.value; };
-// サビ（「いま わかれのとき」）の1小節前。くり返しオンなら、曲の終わりでここへ戻る
-const SABI = 182.0;
-let loopStart = 0;
-function startAt(sec){
-  if (a.readyState >= 1){ a.currentTime = sec; a.play(); return; }
-  // まだ読み込んでいない音源は、再生を始めて長さが分かった時点で飛ぶ
-  a.addEventListener('loadedmetadata', () => { a.currentTime = sec; }, { once: true });
-  a.play();
-}
-$('sabi').onclick = () => {
-  if (!current){
-    current = tracks[0]; a.src = current.dataset.src; a.preservesPitch = true;
-    a.playbackRate = +$('rate').value; $('now').textContent = current.dataset.title;
+$('rate').onchange = e => { a.playbackRate = +e.target.value; try { localStorage.setItem('tabidachi-rate', e.target.value); } catch (_) {} };
+try { const r = localStorage.getItem('tabidachi-rate'); if (r && [...$('rate').options].some(o => o.value === r)) $('rate').value = r; } catch (_) {}
+
+// 小節の頭の時刻（秒）。元の演奏のテンポ表から作成（_work/out/tempo_map.npy、最後の0.21秒詰めを反映）
+const BAR_T = [0.35,2.99,5.61,8.21,10.81,13.39,16.0,18.66,21.36,24.25,27.2,30.01,32.75,35.52,38.38,41.08,43.78,46.45,49.04,51.78,54.47,57.26,60.02,62.8,65.6,68.28,71.04,73.7,76.46,79.2,81.84,84.57,87.31,90.07,92.83,95.48,98.07,100.67,103.25,105.84,108.47,111.14,113.99,116.82,119.67,122.5,125.17,127.9,130.71,133.37,136.07,138.73,141.36,144.07,146.78,149.56,152.27,154.99,157.72,160.41,163.17,165.92,168.65,171.28,173.98,176.67,179.4,182.09,184.7,187.26,189.86,192.58,195.2,197.82,200.49,203.15,205.79,208.5,211.06,213.69,216.39,219.05,221.72,224.39,227.05,229.7,232.3,234.89,237.82,240.54,243.19,245.77,248.35,250.95,253.56,256.16,261.4,266.2];
+// 楽譜の小節番号（くり返しを展開した順）
+const BAR_NO = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,45,46,47,48,49,50,51,52,53,54,55,46,47,48,49,50,51,52,53,56,57,58,59,60,61,62,63,64,65,66];
+// 区間: [名前, はじまりの小節（展開順の番号）, 歌の区間は1小節前から流す]
+const SECTIONS = [['前奏',0,0],['1番',10,1],['1番 27小節〜',26,1],['間奏',34,0],['2番',44,1],['2番 27小節〜',60,1],
+                  ['サビ 46小節〜',68,1],['サビ 2回目',78,1],['おわり 56小節〜',86,1],['後奏',88,0]];
+const secStart = i => BAR_T[SECTIONS[i][1] - SECTIONS[i][2]];
+const secEnd = i => i + 1 < SECTIONS.length ? BAR_T[SECTIONS[i + 1][1]] : BAR_T[BAR_T.length - 1];
+const secAt = t => { let k = 0; SECTIONS.forEach((s, i) => { if (t >= BAR_T[s[1]] - 0.05) k = i; }); return k; };
+const chips = SECTIONS.map((s, i) => {
+  const b = document.createElement('button');
+  b.className = 'chip' + (s[0].startsWith('サビ') ? ' sabi' : ''); b.textContent = s[0];
+  if (s[2]) b.title = '1小節前から流れます';
+  b.onclick = () => { if (ab || pendA !== null) clearAB(); seekTo(secStart(i), true); };
+  $('chips').appendChild(b); return b;
+});
+let shownSec = -1;
+function showPlace(t){
+  let k = 0; while (k + 1 < BAR_NO.length && t >= BAR_T[k + 1]) k++;
+  $('bar').textContent = current && t >= BAR_T[0] ? BAR_NO[k] + '小節' : '';
+  const sc = secAt(t);
+  if (sc !== shownSec){
+    shownSec = sc; chips.forEach((c, i) => c.classList.toggle('on', i === sc));
+    const c = chips[sc], box = $('chips');
+    box.scrollTo({ left: c.offsetLeft - box.offsetLeft - (box.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' });
   }
-  loopStart = SABI; $('now').textContent = current.dataset.title + '（サビから）';
-  startAt(SABI);
+}
+
+// 区間くり返し（A〜B）。B まで来たら A へ戻る
+let ab = null, pendA = null, dragging = false;
+function showAB(){
+  $('setA').classList.toggle('on', pendA !== null || !!ab); $('setB').classList.toggle('on', !!ab);
+  $('clrAB').disabled = !ab && pendA === null;
+  $('abinfo').textContent = ab ? fmt(ab[0]) + ' 〜 ' + fmt(ab[1]) : pendA !== null ? fmt(pendA) + ' 〜（B を押す）' : '';
+}
+function clearAB(){ ab = null; pendA = null; showAB(); }
+$('setA').onclick = () => { if (!current) return; pendA = a.currentTime; ab = null; showAB(); };
+$('setB').onclick = () => {
+  if (!current) return;
+  const s = pendA !== null ? pendA : ab ? ab[0] : 0, e = a.currentTime;
+  if (e - s < 1){ $('abinfo').textContent = 'B は A より後ろで押してください'; return; }
+  ab = [s, e]; pendA = null; showAB(); seekTo(s, true);
 };
-tracks.forEach(t => t.addEventListener('click', () => { if (t !== current) loopStart = 0; }, true));
-a.addEventListener('ended', () => { if ($('loop').checked) startAt(loopStart); });
-let dragging = false;
+$('secAB').onclick = () => {
+  if (!current) load(tracks[0], 0);
+  const i = secAt(a.currentTime || 0); ab = [secStart(i), secEnd(i)]; pendA = null; showAB(); seekTo(ab[0], true);
+};
+$('clrAB').onclick = clearAB;
+(function watch(){
+  if (ab && !a.paused && !dragging && a.currentTime >= ab[1]) a.currentTime = ab[0];
+  requestAnimationFrame(watch);
+})();
+a.addEventListener('ended', () => { if (ab) seekTo(ab[0], true); else if ($('loop').checked) seekTo(0, true); });
+
 $('seek').addEventListener('input', () => { dragging = true; $('time').textContent = fmt(+$('seek').value) + ' / ' + fmt(a.duration); });
 $('seek').addEventListener('change', () => { a.currentTime = +$('seek').value; dragging = false; });
 a.addEventListener('loadedmetadata', () => { $('seek').max = a.duration; });
 a.addEventListener('timeupdate', () => {
   if (!dragging) $('seek').value = a.currentTime;
   $('time').textContent = fmt(a.currentTime) + ' / ' + fmt(a.duration);
+  showPlace(a.currentTime);
 });
 ['play','pause','ended'].forEach(ev => a.addEventListener(ev, refresh));
 document.addEventListener('keydown', e => {
-  if (e.code === 'Space' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT'){ e.preventDefault(); $('toggle').click(); }
+  const tag = e.target.tagName;
+  if (e.code === 'Space' && tag !== 'BUTTON' && tag !== 'INPUT'){ e.preventDefault(); $('toggle').click(); }
+  if (tag !== 'INPUT' && tag !== 'SELECT' && current){
+    if (e.code === 'ArrowLeft'){ e.preventDefault(); $('back').click(); }
+    if (e.code === 'ArrowRight'){ e.preventDefault(); $('fwd').click(); }
+  }
 });
 </script>
 </body>
